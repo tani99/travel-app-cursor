@@ -7,6 +7,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
+import { getUserFriendlyError } from '../utils/errorMessages';
 
 // Register with email and password
 export const registerWithEmail = async (email, password) => {
@@ -14,7 +15,11 @@ export const registerWithEmail = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return { success: true, user: userCredential.user };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { 
+      success: false, 
+      error: getUserFriendlyError(error, 'registration'),
+      originalError: error.message 
+    };
   }
 };
 
@@ -24,7 +29,11 @@ export const loginWithEmail = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return { success: true, user: userCredential.user };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { 
+      success: false, 
+      error: getUserFriendlyError(error, 'login'),
+      originalError: error.message 
+    };
   }
 };
 
@@ -34,7 +43,11 @@ export const loginWithGmail = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     return { success: true, user: result.user };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { 
+      success: false, 
+      error: getUserFriendlyError(error, 'gmail'),
+      originalError: error.message 
+    };
   }
 };
 
@@ -44,7 +57,11 @@ export const logout = async () => {
     await signOut(auth);
     return { success: true };
   } catch (error) {
-    return { success: false, error: error.message };
+    return { 
+      success: false, 
+      error: getUserFriendlyError(error, 'logout'),
+      originalError: error.message 
+    };
   }
 };
 
@@ -84,7 +101,8 @@ export const resetPassword = async (email) => {
       success: false, 
       error: {
         code: error.code,
-        message: error.message
+        message: getUserFriendlyError(error, 'password-reset'),
+        originalMessage: error.message
       }
     };
   }
