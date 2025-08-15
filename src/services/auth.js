@@ -51,10 +51,42 @@ export const logout = async () => {
 // Reset password
 export const resetPassword = async (email) => {
   try {
+    console.log('Firebase: Attempting to send password reset email to:', email);
+    
+    // Validate email format before sending to Firebase
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      console.error('Firebase: Invalid email format:', email);
+      return { 
+        success: false, 
+        error: { 
+          code: 'auth/invalid-email',
+          message: 'Please enter a valid email address.' 
+        } 
+      };
+    }
+
     await sendPasswordResetEmail(auth, email);
-    return { success: true };
+    console.log('Firebase: Password reset email sent successfully to:', email);
+    
+    return { 
+      success: true,
+      message: 'Password reset email sent successfully'
+    };
   } catch (error) {
-    return { success: false, error: error.message };
+    console.error('Firebase: Password reset error:', {
+      code: error.code,
+      message: error.message,
+      email: email
+    });
+    
+    // Return structured error information
+    return { 
+      success: false, 
+      error: {
+        code: error.code,
+        message: error.message
+      }
+    };
   }
 };
 

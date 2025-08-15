@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
@@ -9,6 +9,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState(''); // 'success', 'error', ''
 
   const validateForm = () => {
     const newErrors = {};
@@ -16,23 +17,50 @@ const ForgotPasswordScreen = ({ navigation }) => {
     if (!email) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'Please enter a valid email address';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const getErrorMessage = (errorCode) => {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return 'No account found with this email address. Please check your email or create a new account.';
+      case 'auth/invalid-email':
+        return 'Please enter a valid email address.';
+      case 'auth/too-many-requests':
+        return 'Too many reset attempts. Please try again later.';
+      case 'auth/network-request-failed':
+        return 'Network error. Please check your internet connection and try again.';
+      default:
+        return 'An unexpected error occurred. Please try again.';
+    }
+  };
+
   const handleResetPassword = async () => {
     if (!validateForm()) return;
 
     setLoading(true);
+    setStatus('');
+    setErrors({});
+
     try {
+      console.log('Attempting to reset password for:', email);
+      console.log('Firebase config check:', {
+        authDomain: 'travel-planner-codex.firebaseapp.com',
+        projectId: 'travel-planner-codex'
+      });
+      
       const result = await resetPassword(email);
+      
       if (result.success) {
+        setStatus('success');
+        console.log('Password reset email sent successfully');
         Alert.alert(
-          'Reset Link Sent',
-          'Check your email for password reset instructions.',
+          'Reset Link Sent! 📧',
+          'We\'ve sent a password reset link to your email. Please check your inbox (and spam folder) for instructions.',
           [
             { 
               text: 'OK', 
@@ -41,13 +69,23 @@ const ForgotPasswordScreen = ({ navigation }) => {
           ]
         );
       } else {
-        Alert.alert('Reset Failed', result.error);
+        setStatus('error');
+        const errorMessage = getErrorMessage(result.error?.code || result.error);
+        console.error('Password reset failed:', result.error);
+        Alert.alert('Reset Failed', errorMessage);
       }
     } catch (error) {
-      Alert.alert('Error', 'An unexpected error occurred');
+      setStatus('error');
+      console.error('Unexpected error during password reset:', error);
+      Alert.alert('Error', 'An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearStatus = () => {
+    setStatus('');
+    setErrors({});
   };
 
   return (
@@ -71,24 +109,64 @@ const ForgotPasswordScreen = ({ navigation }) => {
           </Text>
         </View>
 
+        {/* Status Messages */}
+        {status === 'success' && (
+          <View style={[styles.statusContainer, styles.successContainer]}>
+            <Ionicons name="checkmark-circle" size={20} color="#059669" />
+            <Text style={styles.successText}>
+              Reset link sent! Check your email.
+            </Text>
+          </View>
+        )}
+
+        {status === 'error' && (
+          <View style={[styles.statusContainer, styles.errorContainer]}>
+            <Ionicons name="alert-circle" size={20} color="#DC2626" />
+            <Text style={styles.errorText}>
+              Failed to send reset link. Please try again.
+            </Text>
+          </View>
+        )}
+
         {/* Form */}
         <View style={styles.formContainer}>
           <CustomInput
             label="Email Address"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={(text) => {
+              setEmail(text);
+              clearStatus();
+            }}
             placeholder="Enter your email"
             keyboardType="email-address"
             autoCapitalize="none"
             error={errors.email}
+            editable={!loading}
           />
 
           <CustomButton
-            title="Send Reset Link"
+            title={loading ? "Sending..." : "Send Reset Link"}
             onPress={handleResetPassword}
             loading={loading}
             style={styles.resetButton}
+            disabled={loading}
           />
+
+          {loading && (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="small" color="#2563EB" />
+              <Text style={styles.loadingText}>
+                Sending reset link to your email...
+              </Text>
+            </View>
+          )}
+        </View>
+
+        {/* Help Text */}
+        <View style={styles.helpContainer}>
+          <Text style={styles.helpText}>
+            💡 Don't see the email? Check your spam folder or try again.
+          </Text>
         </View>
 
         {/* Footer */}
@@ -135,11 +213,65 @@ const styles = StyleSheet.create({
     color: '#64748B',
     lineHeight: 24,
   },
+  statusContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  successContainer: {
+    backgroundColor: '#ECFDF5',
+    borderColor: '#A7F3D0',
+    borderWidth: 1,
+  },
+  errorContainer: {
+    backgroundColor: '#FEF2F2',
+    borderColor: '#FECACA',
+    borderWidth: 1,
+  },
+  successText: {
+    color: '#059669',
+    fontSize: 14,
+    marginLeft: 8,
+    fontWeight: '500',
+  },
+  errorText: {
+    color: '#DC2626',
+    fontSize: 14,
+    marginLeft: 8,
+    fontWeight: '500',
+  },
   formContainer: {
     flex: 1,
   },
   resetButton: {
     marginTop: 24,
+  },
+  loadingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 16,
+    padding: 12,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 8,
+  },
+  loadingText: {
+    color: '#64748B',
+    fontSize: 14,
+    marginLeft: 8,
+  },
+  helpContainer: {
+    marginBottom: 20,
+    padding: 12,
+    backgroundColor: '#F1F5F9',
+    borderRadius: 8,
+  },
+  helpText: {
+    color: '#475569',
+    fontSize: 14,
+    textAlign: 'center',
   },
   footer: {
     flexDirection: 'row',
