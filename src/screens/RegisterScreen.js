@@ -5,6 +5,7 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
 import { registerWithEmail, loginWithGmail } from '../services/auth';
+import { getUserFriendlyError } from '../utils/errorMessages';
 
 const RegisterScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -20,25 +21,25 @@ const RegisterScreen = ({ navigation }) => {
     const newErrors = {};
     
     if (!fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
+      newErrors.fullName = 'Please enter your full name';
     }
     
     if (!email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'Please enter your email address';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'Please enter a valid email address';
     }
     
     if (!password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = 'Please create a password';
     } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = 'Password must be at least 6 characters long';
     }
 
     if (!confirmPassword) {
       newErrors.confirmPassword = 'Please confirm your password';
     } else if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = 'Passwords do not match. Please try again';
     }
 
     setErrors(newErrors);
@@ -68,28 +69,12 @@ const RegisterScreen = ({ navigation }) => {
           ]
         );
       } else {
-        // Handle specific Firebase auth errors with user-friendly messages
-        let errorMessage = result.error || 'Unknown error occurred';
-        
-        if (result.error.includes('auth/email-already-in-use')) {
-          errorMessage = 'This email is already registered. Please try signing in instead, or use a different email address.';
-        } else if (result.error.includes('auth/weak-password')) {
-          errorMessage = 'Password is too weak. Please use at least 6 characters.';
-        } else if (result.error.includes('auth/invalid-email')) {
-          errorMessage = 'Please enter a valid email address.';
-        } else if (result.error.includes('auth/operation-not-allowed')) {
-          errorMessage = 'Email/password authentication is not enabled. Please contact support.';
-        } else if (result.error.includes('auth/user-disabled')) {
-          errorMessage = 'This account has been disabled. Please contact support.';
-        } else if (result.error.includes('auth/too-many-requests')) {
-          errorMessage = 'Too many failed attempts. Please try again later.';
-        }
-        
-        setAuthError(errorMessage);
+        // Use the user-friendly error message from the service
+        setAuthError(result.error);
       }
     } catch (error) {
       console.error('Registration error:', error);
-      setAuthError('An unexpected error occurred: ' + error.message);
+      setAuthError(getUserFriendlyError(error, 'registration'));
     } finally {
       setLoading(false);
     }
@@ -109,7 +94,7 @@ const RegisterScreen = ({ navigation }) => {
       }
     } catch (error) {
       console.error('Gmail registration error:', error);
-      Alert.alert('Error', 'An unexpected error occurred during Gmail registration: ' + error.message);
+      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
     } finally {
       setGmailLoading(false);
     }

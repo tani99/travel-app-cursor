@@ -5,6 +5,7 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
 import { loginWithEmail, loginWithGmail } from '../services/auth';
+import { getUserFriendlyError } from '../utils/errorMessages';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -18,15 +19,15 @@ const LoginScreen = ({ navigation }) => {
     const newErrors = {};
     
     if (!email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'Please enter your email address';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'Please enter a valid email address';
     }
     
     if (!password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = 'Please enter your password';
     } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = 'Password must be at least 6 characters long';
     }
 
     setErrors(newErrors);
@@ -48,28 +49,12 @@ const LoginScreen = ({ navigation }) => {
         // Navigation will be handled by AuthContext
         console.log('Login successful - user should be redirected to Home');
       } else {
-        // Handle specific Firebase auth errors with user-friendly messages
-        let errorMessage = result.error || 'Invalid email or password';
-        
-        if (result.error.includes('auth/user-not-found')) {
-          errorMessage = 'No account found with this email. Please check your email or create a new account.';
-        } else if (result.error.includes('auth/wrong-password')) {
-          errorMessage = 'Incorrect password. Please try again.';
-        } else if (result.error.includes('auth/invalid-email')) {
-          errorMessage = 'Please enter a valid email address.';
-        } else if (result.error.includes('auth/user-disabled')) {
-          errorMessage = 'This account has been disabled. Please contact support.';
-        } else if (result.error.includes('auth/too-many-requests')) {
-          errorMessage = 'Too many failed attempts. Please try again later.';
-        } else if (result.error.includes('auth/network-request-failed')) {
-          errorMessage = 'Network error. Please check your internet connection and try again.';
-        }
-        
-        setAuthError(errorMessage);
+        // Use the user-friendly error message from the service
+        setAuthError(result.error);
       }
     } catch (error) {
       console.error('Login error:', error);
-      setAuthError('An unexpected error occurred: ' + error.message);
+      setAuthError(getUserFriendlyError(error, 'login'));
     } finally {
       setLoading(false);
     }
@@ -89,7 +74,7 @@ const LoginScreen = ({ navigation }) => {
       }
     } catch (error) {
       console.error('Gmail login error:', error);
-      Alert.alert('Error', 'An unexpected error occurred during Gmail login: ' + error.message);
+      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
     } finally {
       setGmailLoading(false);
     }

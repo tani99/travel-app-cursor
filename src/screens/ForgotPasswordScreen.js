@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
+import { getUserFriendlyError } from '../utils/errorMessages';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     const newErrors = {};
     
     if (!email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'Please enter your email address';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Please enter a valid email address';
     }
@@ -25,18 +26,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   const getErrorMessage = (errorCode) => {
-    switch (errorCode) {
-      case 'auth/user-not-found':
-        return 'No account found with this email address. Please check your email or create a new account.';
-      case 'auth/invalid-email':
-        return 'Please enter a valid email address.';
-      case 'auth/too-many-requests':
-        return 'Too many reset attempts. Please try again later.';
-      case 'auth/network-request-failed':
-        return 'Network error. Please check your internet connection and try again.';
-      default:
-        return 'An unexpected error occurred. Please try again.';
-    }
+    return getUserFriendlyError(errorCode, 'password-reset');
   };
 
   const handleResetPassword = async () => {
@@ -70,14 +60,14 @@ const ForgotPasswordScreen = ({ navigation }) => {
         );
       } else {
         setStatus('error');
-        const errorMessage = getErrorMessage(result.error?.code || result.error);
+        const errorMessage = result.error?.message || getErrorMessage(result.error?.code || result.error);
         console.error('Password reset failed:', result.error);
         Alert.alert('Reset Failed', errorMessage);
       }
     } catch (error) {
       setStatus('error');
       console.error('Unexpected error during password reset:', error);
-      Alert.alert('Error', 'An unexpected error occurred. Please try again.');
+      Alert.alert('Error', getUserFriendlyError(error, 'password-reset'));
     } finally {
       setLoading(false);
     }
