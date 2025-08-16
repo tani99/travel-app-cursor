@@ -6,6 +6,7 @@ import ScreenFooter from '../components/layout/ScreenFooter';
 import FormDivider from '../components/forms/FormDivider';
 import AuthErrorDisplay from '../components/forms/AuthErrorDisplay';
 import LoadingIndicator from '../components/ui/LoadingIndicator';
+import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -149,6 +150,12 @@ const LoginScreen = ({ navigation }) => {
           />
         )}
       </View>
+
+      {/* Help Text */}
+      <HelpText 
+        text="Quick sign in with Gmail or use your email and password below."
+        icon="⚡"
+      />
 
       {/* Footer */}
       <ScreenFooter

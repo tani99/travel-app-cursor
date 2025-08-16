@@ -7,6 +7,7 @@ import ScreenTitle from '../components/layout/ScreenTitle';
 import ScreenFooter from '../components/layout/ScreenFooter';
 import StatusMessage from '../components/forms/StatusMessage';
 import LoadingIndicator from '../components/ui/LoadingIndicator';
+import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
@@ -139,11 +140,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
       </View>
 
       {/* Help Text */}
-      <View style={styles.helpContainer}>
-        <Text style={styles.helpText}>
-          💡 Don't see the email? Check your spam folder or try again.
-        </Text>
-      </View>
+      <HelpText 
+        text="Don't see the email? Check your spam folder or try again."
+      />
 
       {/* Footer */}
       <ScreenFooter
@@ -176,17 +175,6 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     marginTop: 24,
-  },
-  helpContainer: {
-    marginBottom: 20,
-    padding: 12,
-    backgroundColor: '#F1F5F9',
-    borderRadius: 8,
-  },
-  helpText: {
-    color: '#475569',
-    fontSize: 14,
-    textAlign: 'center',
   },
 
 });
