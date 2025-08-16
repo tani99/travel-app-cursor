@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenTitle from '../components/layout/ScreenTitle';
 import CustomButton from '../components/CustomButton';
+import { colors } from '../theme/colors';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
@@ -61,10 +62,10 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#2563EB',
+    backgroundColor: colors.primary.main,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#2563EB',
+    shadowColor: colors.primary.main,
     shadowOffset: {
       width: 0,
       height: 8,
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: colors.text.inverse,
   },
   textContainer: {
     alignItems: 'center',
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   },
   dividerText: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
   },
 });
 

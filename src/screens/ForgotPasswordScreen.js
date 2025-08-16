@@ -12,6 +12,7 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
+import { colors } from '../theme/colors';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -161,12 +162,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1E293B',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
     lineHeight: 24,
   },
 

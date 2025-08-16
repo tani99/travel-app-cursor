@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const ScreenFooter = ({ 
   text, 
@@ -28,11 +29,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
   },
   footerLink: {
     fontSize: 16,
-    color: '#2563EB',
+    color: colors.primary.main,
     fontWeight: '600',
   },
 });

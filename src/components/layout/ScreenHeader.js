@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../theme/colors';
 
 const ScreenHeader = ({ 
   navigation,
@@ -28,7 +29,7 @@ const ScreenHeader = ({
             style={styles.backButton}
             onPress={handleBackPress}
           >
-            <Ionicons name="arrow-back" size={24} color="#1E293B" />
+            <Ionicons name="arrow-back" size={24} color={colors.icon.primary} />
           </TouchableOpacity>
         )}
       </View>
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1E293B',
+    color: colors.text.primary,
   },
 });
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const ScreenLayout = ({ 
   children, 
-  backgroundColor = '#FFFFFF',
+  backgroundColor = colors.background.primary,
   paddingHorizontal = 24,
   scrollable = false,
   contentContainerStyle,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const AuthErrorDisplay = ({ 
   error, 
@@ -20,15 +21,15 @@ const AuthErrorDisplay = ({
 
 const styles = StyleSheet.create({
   authErrorContainer: {
-    backgroundColor: '#FEF2F2',
+    backgroundColor: colors.status.error.background,
     borderWidth: 1,
-    borderColor: '#FECACA',
+    borderColor: colors.status.error.border,
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
   },
   authErrorText: {
-    color: '#DC2626',
+    color: colors.status.error.light,
     fontSize: 14,
     textAlign: 'center',
     lineHeight: 20,

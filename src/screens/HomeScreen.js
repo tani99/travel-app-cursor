@@ -6,6 +6,7 @@ import ScreenHeader from '../components/layout/ScreenHeader';
 import CustomButton from '../components/CustomButton';
 import { logout } from '../services/auth';
 import { useAuth } from '../context/AuthContext';
+import { colors } from '../theme/colors';
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useAuth();
@@ -28,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
         showBackButton={false}
         rightElement={
           <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Ionicons name="log-out-outline" size={24} color="#EF4444" />
+            <Ionicons name="log-out-outline" size={24} color={colors.icon.logout} />
           </TouchableOpacity>
         }
       />
@@ -36,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
       {/* Welcome Message */}
       <View style={styles.welcomeContainer}>
         <View style={styles.welcomeIcon}>
-          <Ionicons name="checkmark-circle" size={64} color="#10B981" />
+          <Ionicons name="checkmark-circle" size={64} color={colors.icon.success} />
         </View>
         <Text style={styles.welcomeTitle}>Welcome!</Text>
         <Text style={styles.welcomeSubtitle}>
@@ -49,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
 
       {/* Content Placeholder */}
       <View style={styles.contentPlaceholder}>
-        <Ionicons name="home-outline" size={48} color="#64748B" />
+        <Ionicons name="home-outline" size={48} color={colors.icon.secondary} />
         <Text style={styles.placeholderTitle}>Your Dashboard</Text>
         <Text style={styles.placeholderText}>
           This is where your app content will go. Start building amazing features!
@@ -82,19 +83,19 @@ const styles = StyleSheet.create({
   welcomeTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1E293B',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   welcomeSubtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
     textAlign: 'center',
     lineHeight: 24,
     marginBottom: 8,
   },
   userEmail: {
     fontSize: 14,
-    color: '#2563EB',
+    color: colors.primary.main,
     fontWeight: '500',
   },
   contentPlaceholder: {
@@ -106,13 +107,13 @@ const styles = StyleSheet.create({
   placeholderTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1E293B',
+    color: colors.text.primary,
     marginTop: 16,
     marginBottom: 8,
   },
   placeholderText: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
     textAlign: 'center',
     lineHeight: 24,
     paddingHorizontal: 20,

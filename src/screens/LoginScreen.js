@@ -12,6 +12,7 @@ import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
 import { loginWithEmail, loginWithGmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
+import { colors } from '../theme/colors';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -174,12 +175,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1E293B',
+    color: colors.text.primary,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: colors.text.secondary,
   },
   gmailButton: {
     marginBottom: 24,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   forgotPasswordText: {
-    color: '#2563EB',
+    color: colors.primary.main,
     fontSize: 14,
     fontWeight: '500',
   },

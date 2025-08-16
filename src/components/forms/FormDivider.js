@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const FormDivider = ({ 
   text = 'or', 
@@ -25,12 +26,12 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: colors.border.primary,
   },
   dividerText: {
     marginHorizontal: 16,
     fontSize: 14,
-    color: '#64748B',
+    color: colors.text.secondary,
   },
 });
 
