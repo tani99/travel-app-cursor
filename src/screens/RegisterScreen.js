@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import ScreenLayout from '../components/layout/ScreenLayout';
+import ScreenHeader from '../components/layout/ScreenHeader';
+import ScreenFooter from '../components/layout/ScreenFooter';
+import FormDivider from '../components/forms/FormDivider';
+import AuthErrorDisplay from '../components/forms/AuthErrorDisplay';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
+import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
 import { registerWithEmail, loginWithGmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
+import ScreenTitle from '../components/layout/ScreenTitle';
 
 const RegisterScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -101,128 +108,101 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView 
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
-          {/* Header */}
-          <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons name="arrow-back" size={24} color="#1E293B" />
-            </TouchableOpacity>
-          </View>
+    <ScreenLayout scrollable contentContainerStyle={styles.scrollContent}>
+      {/* Header */}
+      <ScreenHeader navigation={navigation} />
 
-          {/* Title */}
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>Join WelcomeApp today</Text>
-          </View>
+      {/* Title */}
+      <ScreenTitle 
+        title="Create Account"
+        subtitle="Join TravelPlanner and start your adventure"
+      />
 
-                  {/* Gmail Button */}
-        <GmailButton
-          onPress={handleGmailRegister}
-          loading={gmailLoading}
-          style={styles.gmailButton}
+      {/* Gmail Button */}
+      <GmailButton
+        onPress={handleGmailRegister}
+        loading={gmailLoading}
+        style={styles.gmailButton}
+      />
+
+      {/* Divider */}
+      <FormDivider />
+
+      {/* Registration Form */}
+      <View style={styles.formContainer}>
+        <CustomInput
+          label="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
+          placeholder="Enter your full name"
+          autoCapitalize="words"
+          error={errors.fullName}
         />
 
-          {/* Divider */}
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>or</Text>
-            <View style={styles.dividerLine} />
-          </View>
+        <CustomInput
+          label="Email Address"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          error={errors.email}
+        />
 
-          {/* Registration Form */}
-          <View style={styles.formContainer}>
-            <CustomInput
-              label="Full Name"
-              value={fullName}
-              onChangeText={setFullName}
-              placeholder="Enter your full name"
-              autoCapitalize="words"
-              error={errors.fullName}
-            />
+        <CustomInput
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Create a password"
+          secureTextEntry
+          error={errors.password}
+        />
 
-            <CustomInput
-              label="Email Address"
-              value={email}
-              onChangeText={setEmail}
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              error={errors.email}
-            />
+        <CustomInput
+          label="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          placeholder="Confirm your password"
+          secureTextEntry
+          error={errors.confirmPassword}
+        />
 
-            <CustomInput
-              label="Password"
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Create a password"
-              secureTextEntry
-              error={errors.password}
-            />
+        <AuthErrorDisplay error={authError} />
 
-            <CustomInput
-              label="Confirm Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm your password"
-              secureTextEntry
-              error={errors.confirmPassword}
-            />
+        <CustomButton
+          title="Create Account"
+          onPress={handleEmailRegister}
+          loading={loading}
+          style={styles.createAccountButton}
+        />
 
-                      {authError ? (
-            <View style={styles.authErrorContainer}>
-              <Text style={styles.authErrorText}>{authError}</Text>
-            </View>
-          ) : null}
-
-          <CustomButton
-            title="Create Account"
-            onPress={handleEmailRegister}
-            loading={loading}
-            style={styles.createAccountButton}
+        {loading && (
+          <LoadingIndicator 
+            message="Creating your account..."
           />
-          </View>
+        )}
+      </View>
 
-                  {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.footerLink}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      {/* Help Text */}
+      <HelpText 
+        text="Password must be at least 6 characters long. Use a mix of letters and numbers for better security."
+        icon="🔒"
+      />
+
+      {/* Footer */}
+      <ScreenFooter
+        text="Already have an account?"
+        linkText="Sign In"
+        onLinkPress={() => navigation.navigate('Login')}
+      />
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  scrollView: {
-    flex: 1,
-  },
   scrollContent: {
-    paddingHorizontal: 24,
     paddingBottom: 40,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  backButton: {
-    padding: 8,
+    flexGrow: 1,
   },
   titleContainer: {
     marginBottom: 32,
@@ -240,56 +220,12 @@ const styles = StyleSheet.create({
   gmailButton: {
     marginBottom: 24,
   },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#E2E8F0',
-  },
-  dividerText: {
-    marginHorizontal: 16,
-    fontSize: 14,
-    color: '#64748B',
-  },
   formContainer: {
     marginBottom: 20,
   },
   createAccountButton: {
     marginTop: 16,
     marginBottom: 24,
-  },
-  authErrorContainer: {
-    backgroundColor: '#FEF2F2',
-    borderWidth: 1,
-    borderColor: '#FECACA',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  authErrorText: {
-    color: '#DC2626',
-    fontSize: 14,
-    textAlign: 'center',
-    lineHeight: 20,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  footerText: {
-    fontSize: 16,
-    color: '#64748B',
-  },
-  footerLink: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '600',
   },
 });
 

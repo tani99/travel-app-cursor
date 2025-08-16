@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ScreenLayout from '../components/layout/ScreenLayout';
+import ScreenHeader from '../components/layout/ScreenHeader';
+import ScreenTitle from '../components/layout/ScreenTitle';
+import ScreenFooter from '../components/layout/ScreenFooter';
+import StatusMessage from '../components/forms/StatusMessage';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
+import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
@@ -79,116 +86,75 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="arrow-back" size={24} color="#1E293B" />
-          </TouchableOpacity>
-        </View>
+    <ScreenLayout>
+      {/* Header */}
+      <ScreenHeader navigation={navigation} />
 
-        {/* Title */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Reset Password</Text>
-          <Text style={styles.subtitle}>
-            Enter your email to receive reset link
-          </Text>
-        </View>
+      {/* Title */}
+      <ScreenTitle 
+        title="Reset Password"
+        subtitle="Enter your email to receive reset link"
+      />
 
-        {/* Status Messages */}
-        {status === 'success' && (
-          <View style={[styles.statusContainer, styles.successContainer]}>
-            <Ionicons name="checkmark-circle" size={20} color="#059669" />
-            <Text style={styles.successText}>
-              Reset link sent! Check your email.
-            </Text>
-          </View>
-        )}
+      {/* Status Messages */}
+      <StatusMessage
+        type={status}
+        message={
+          status === 'success' 
+            ? 'Reset link sent! Check your email.'
+            : status === 'error'
+            ? 'Failed to send reset link. Please try again.'
+            : null
+        }
+      />
 
-        {status === 'error' && (
-          <View style={[styles.statusContainer, styles.errorContainer]}>
-            <Ionicons name="alert-circle" size={20} color="#DC2626" />
-            <Text style={styles.errorText}>
-              Failed to send reset link. Please try again.
-            </Text>
-          </View>
-        )}
+      {/* Form */}
+      <View style={styles.formContainer}>
+        <CustomInput
+          label="Email Address"
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+            clearStatus();
+          }}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          error={errors.email}
+          editable={!loading}
+        />
 
-        {/* Form */}
-        <View style={styles.formContainer}>
-          <CustomInput
-            label="Email Address"
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-              clearStatus();
-            }}
-            placeholder="Enter your email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            error={errors.email}
-            editable={!loading}
+        <CustomButton
+          title={loading ? "Sending..." : "Send Reset Link"}
+          onPress={handleResetPassword}
+          loading={loading}
+          style={styles.resetButton}
+          disabled={loading}
+        />
+
+        {loading && (
+          <LoadingIndicator 
+            message="Sending reset link to your email..."
           />
-
-          <CustomButton
-            title={loading ? "Sending..." : "Send Reset Link"}
-            onPress={handleResetPassword}
-            loading={loading}
-            style={styles.resetButton}
-            disabled={loading}
-          />
-
-          {loading && (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="small" color="#2563EB" />
-              <Text style={styles.loadingText}>
-                Sending reset link to your email...
-              </Text>
-            </View>
-          )}
-        </View>
-
-        {/* Help Text */}
-        <View style={styles.helpContainer}>
-          <Text style={styles.helpText}>
-            💡 Don't see the email? Check your spam folder or try again.
-          </Text>
-        </View>
-
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Remember password? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.footerLink}>Back to Sign In</Text>
-          </TouchableOpacity>
-        </View>
+        )}
       </View>
-    </SafeAreaView>
+
+      {/* Help Text */}
+      <HelpText 
+        text="Don't see the email? Check your spam folder or try again."
+      />
+
+      {/* Footer */}
+      <ScreenFooter
+        text="Remember password?"
+        linkText="Back to Sign In"
+        onLinkPress={() => navigation.navigate('Login')}
+      />
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  backButton: {
-    padding: 8,
-  },
   titleContainer: {
     marginBottom: 40,
   },
@@ -203,81 +169,14 @@ const styles = StyleSheet.create({
     color: '#64748B',
     lineHeight: 24,
   },
-  statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  successContainer: {
-    backgroundColor: '#ECFDF5',
-    borderColor: '#A7F3D0',
-    borderWidth: 1,
-  },
-  errorContainer: {
-    backgroundColor: '#FEF2F2',
-    borderColor: '#FECACA',
-    borderWidth: 1,
-  },
-  successText: {
-    color: '#059669',
-    fontSize: 14,
-    marginLeft: 8,
-    fontWeight: '500',
-  },
-  errorText: {
-    color: '#DC2626',
-    fontSize: 14,
-    marginLeft: 8,
-    fontWeight: '500',
-  },
+
   formContainer: {
     flex: 1,
   },
   resetButton: {
     marginTop: 24,
   },
-  loadingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 16,
-    padding: 12,
-    backgroundColor: '#F8FAFC',
-    borderRadius: 8,
-  },
-  loadingText: {
-    color: '#64748B',
-    fontSize: 14,
-    marginLeft: 8,
-  },
-  helpContainer: {
-    marginBottom: 20,
-    padding: 12,
-    backgroundColor: '#F1F5F9',
-    borderRadius: 8,
-  },
-  helpText: {
-    color: '#475569',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  footerText: {
-    fontSize: 16,
-    color: '#64748B',
-  },
-  footerLink: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '600',
-  },
+
 });
 
 export default ForgotPasswordScreen;
