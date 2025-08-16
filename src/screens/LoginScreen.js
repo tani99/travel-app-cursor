@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/layout/ScreenLayout';
+import ScreenHeader from '../components/layout/ScreenHeader';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -84,14 +84,7 @@ const LoginScreen = ({ navigation }) => {
   return (
     <ScreenLayout>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#1E293B" />
-        </TouchableOpacity>
-      </View>
+      <ScreenHeader navigation={navigation} />
 
       {/* Title */}
       <View style={styles.titleContainer}>
@@ -167,15 +160,6 @@ const LoginScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  backButton: {
-    padding: 8,
-  },
   titleContainer: {
     marginBottom: 32,
   },

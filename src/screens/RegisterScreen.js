@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/layout/ScreenLayout';
+import ScreenHeader from '../components/layout/ScreenHeader';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -104,14 +104,7 @@ const RegisterScreen = ({ navigation }) => {
   return (
     <ScreenLayout scrollable contentContainerStyle={styles.scrollContent}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#1E293B" />
-        </TouchableOpacity>
-      </View>
+      <ScreenHeader navigation={navigation} />
 
       {/* Title */}
       <View style={styles.titleContainer}>
@@ -200,15 +193,6 @@ const RegisterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 40,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 40,
-  },
-  backButton: {
-    padding: 8,
   },
   titleContainer: {
     marginBottom: 32,
