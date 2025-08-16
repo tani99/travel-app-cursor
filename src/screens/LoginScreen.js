@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenFooter from '../components/layout/ScreenFooter';
+import FormDivider from '../components/forms/FormDivider';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -101,11 +102,7 @@ const LoginScreen = ({ navigation }) => {
       />
 
       {/* Divider */}
-      <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine} />
-        <Text style={styles.dividerText}>or</Text>
-        <View style={styles.dividerLine} />
-      </View>
+      <FormDivider />
 
       {/* Email/Password Form */}
       <View style={styles.formContainer}>
@@ -176,21 +173,7 @@ const styles = StyleSheet.create({
   gmailButton: {
     marginBottom: 24,
   },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#E2E8F0',
-  },
-  dividerText: {
-    marginHorizontal: 16,
-    fontSize: 14,
-    color: '#64748B',
-  },
+
   formContainer: {
     flex: 1,
   },
