@@ -4,6 +4,7 @@ import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenFooter from '../components/layout/ScreenFooter';
 import FormDivider from '../components/forms/FormDivider';
+import AuthErrorDisplay from '../components/forms/AuthErrorDisplay';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -132,11 +133,7 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>
 
-        {authError ? (
-          <View style={styles.authErrorContainer}>
-            <Text style={styles.authErrorText}>{authError}</Text>
-          </View>
-        ) : null}
+        <AuthErrorDisplay error={authError} />
 
         <CustomButton
           title="Sign In"
@@ -189,20 +186,7 @@ const styles = StyleSheet.create({
   signInButton: {
     marginBottom: 24,
   },
-  authErrorContainer: {
-    backgroundColor: '#FEF2F2',
-    borderWidth: 1,
-    borderColor: '#FECACA',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-  },
-  authErrorText: {
-    color: '#DC2626',
-    fontSize: 14,
-    textAlign: 'center',
-    lineHeight: 20,
-  },
+
 
 });
 
