@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } fr
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
+import ScreenTitle from '../components/layout/ScreenTitle';
+import ScreenFooter from '../components/layout/ScreenFooter';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
-import ScreenTitle from '../components/layout/ScreenTitle';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -153,12 +154,11 @@ const ForgotPasswordScreen = ({ navigation }) => {
       </View>
 
       {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Remember password? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.footerLink}>Back to Sign In</Text>
-        </TouchableOpacity>
-      </View>
+      <ScreenFooter
+        text="Remember password?"
+        linkText="Back to Sign In"
+        onLinkPress={() => navigation.navigate('Login')}
+      />
     </ScreenLayout>
   );
 };
@@ -238,21 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  footerText: {
-    fontSize: 16,
-    color: '#64748B',
-  },
-  footerLink: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '600',
-  },
+
 });
 
 export default ForgotPasswordScreen;

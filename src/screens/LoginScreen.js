@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
+import ScreenFooter from '../components/layout/ScreenFooter';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -149,12 +150,11 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footerLink}>Create Account</Text>
-        </TouchableOpacity>
-      </View>
+      <ScreenFooter
+        text="Don't have an account?"
+        linkText="Create Account"
+        onLinkPress={() => navigation.navigate('Register')}
+      />
     </ScreenLayout>
   );
 };
@@ -220,21 +220,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
   },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  footerText: {
-    fontSize: 16,
-    color: '#64748B',
-  },
-  footerLink: {
-    fontSize: 16,
-    color: '#2563EB',
-    fontWeight: '600',
-  },
+
 });
 
 export default LoginScreen;
