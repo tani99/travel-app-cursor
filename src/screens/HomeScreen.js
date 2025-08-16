@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ScreenLayout from '../components/layout/ScreenLayout';
 import CustomButton from '../components/CustomButton';
 import { logout } from '../services/auth';
 import { useAuth } from '../context/AuthContext';
@@ -18,61 +19,51 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>WelcomeApp</Text>
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Ionicons name="log-out-outline" size={24} color="#EF4444" />
-          </TouchableOpacity>
-        </View>
-
-        {/* Welcome Message */}
-        <View style={styles.welcomeContainer}>
-          <View style={styles.welcomeIcon}>
-            <Ionicons name="checkmark-circle" size={64} color="#10B981" />
-          </View>
-          <Text style={styles.welcomeTitle}>Welcome!</Text>
-          <Text style={styles.welcomeSubtitle}>
-            You have successfully signed in to WelcomeApp
-          </Text>
-          {user?.email && (
-            <Text style={styles.userEmail}>{user.email}</Text>
-          )}
-        </View>
-
-        {/* Content Placeholder */}
-        <View style={styles.contentPlaceholder}>
-          <Ionicons name="home-outline" size={48} color="#64748B" />
-          <Text style={styles.placeholderTitle}>Your Dashboard</Text>
-          <Text style={styles.placeholderText}>
-            This is where your app content will go. Start building amazing features!
-          </Text>
-        </View>
-
-        {/* Action Buttons */}
-        <View style={styles.actionContainer}>
-          <CustomButton
-            title="Explore Features"
-            onPress={() => console.log('Explore features')}
-            style={styles.actionButton}
-          />
-        </View>
+    <ScreenLayout>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>WelcomeApp</Text>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Ionicons name="log-out-outline" size={24} color="#EF4444" />
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+
+      {/* Welcome Message */}
+      <View style={styles.welcomeContainer}>
+        <View style={styles.welcomeIcon}>
+          <Ionicons name="checkmark-circle" size={64} color="#10B981" />
+        </View>
+        <Text style={styles.welcomeTitle}>Welcome!</Text>
+        <Text style={styles.welcomeSubtitle}>
+          You have successfully signed in to WelcomeApp
+        </Text>
+        {user?.email && (
+          <Text style={styles.userEmail}>{user.email}</Text>
+        )}
+      </View>
+
+      {/* Content Placeholder */}
+      <View style={styles.contentPlaceholder}>
+        <Ionicons name="home-outline" size={48} color="#64748B" />
+        <Text style={styles.placeholderTitle}>Your Dashboard</Text>
+        <Text style={styles.placeholderText}>
+          This is where your app content will go. Start building amazing features!
+        </Text>
+      </View>
+
+      {/* Action Buttons */}
+      <View style={styles.actionContainer}>
+        <CustomButton
+          title="Explore Features"
+          onPress={() => console.log('Explore features')}
+          style={styles.actionButton}
+        />
+      </View>
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

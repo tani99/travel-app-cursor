@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ScreenLayout from '../components/layout/ScreenLayout';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
@@ -79,107 +80,97 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Ionicons name="arrow-back" size={24} color="#1E293B" />
-          </TouchableOpacity>
-        </View>
-
-        {/* Title */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Reset Password</Text>
-          <Text style={styles.subtitle}>
-            Enter your email to receive reset link
-          </Text>
-        </View>
-
-        {/* Status Messages */}
-        {status === 'success' && (
-          <View style={[styles.statusContainer, styles.successContainer]}>
-            <Ionicons name="checkmark-circle" size={20} color="#059669" />
-            <Text style={styles.successText}>
-              Reset link sent! Check your email.
-            </Text>
-          </View>
-        )}
-
-        {status === 'error' && (
-          <View style={[styles.statusContainer, styles.errorContainer]}>
-            <Ionicons name="alert-circle" size={20} color="#DC2626" />
-            <Text style={styles.errorText}>
-              Failed to send reset link. Please try again.
-            </Text>
-          </View>
-        )}
-
-        {/* Form */}
-        <View style={styles.formContainer}>
-          <CustomInput
-            label="Email Address"
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-              clearStatus();
-            }}
-            placeholder="Enter your email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            error={errors.email}
-            editable={!loading}
-          />
-
-          <CustomButton
-            title={loading ? "Sending..." : "Send Reset Link"}
-            onPress={handleResetPassword}
-            loading={loading}
-            style={styles.resetButton}
-            disabled={loading}
-          />
-
-          {loading && (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="small" color="#2563EB" />
-              <Text style={styles.loadingText}>
-                Sending reset link to your email...
-              </Text>
-            </View>
-          )}
-        </View>
-
-        {/* Help Text */}
-        <View style={styles.helpContainer}>
-          <Text style={styles.helpText}>
-            💡 Don't see the email? Check your spam folder or try again.
-          </Text>
-        </View>
-
-        {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Remember password? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.footerLink}>Back to Sign In</Text>
-          </TouchableOpacity>
-        </View>
+    <ScreenLayout>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#1E293B" />
+        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+
+      {/* Title */}
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Reset Password</Text>
+        <Text style={styles.subtitle}>
+          Enter your email to receive reset link
+        </Text>
+      </View>
+
+      {/* Status Messages */}
+      {status === 'success' && (
+        <View style={[styles.statusContainer, styles.successContainer]}>
+          <Ionicons name="checkmark-circle" size={20} color="#059669" />
+          <Text style={styles.successText}>
+            Reset link sent! Check your email.
+          </Text>
+        </View>
+      )}
+
+      {status === 'error' && (
+        <View style={[styles.statusContainer, styles.errorContainer]}>
+          <Ionicons name="alert-circle" size={20} color="#DC2626" />
+          <Text style={styles.errorText}>
+            Failed to send reset link. Please try again.
+          </Text>
+        </View>
+      )}
+
+      {/* Form */}
+      <View style={styles.formContainer}>
+        <CustomInput
+          label="Email Address"
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+            clearStatus();
+          }}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          error={errors.email}
+          editable={!loading}
+        />
+
+        <CustomButton
+          title={loading ? "Sending..." : "Send Reset Link"}
+          onPress={handleResetPassword}
+          loading={loading}
+          style={styles.resetButton}
+          disabled={loading}
+        />
+
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="small" color="#2563EB" />
+            <Text style={styles.loadingText}>
+              Sending reset link to your email...
+            </Text>
+          </View>
+        )}
+      </View>
+
+      {/* Help Text */}
+      <View style={styles.helpContainer}>
+        <Text style={styles.helpText}>
+          💡 Don't see the email? Check your spam folder or try again.
+        </Text>
+      </View>
+
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Remember password? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.footerLink}>Back to Sign In</Text>
+        </TouchableOpacity>
+      </View>
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

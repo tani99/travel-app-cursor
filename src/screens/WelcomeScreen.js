@@ -1,59 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import ScreenLayout from '../components/layout/ScreenLayout';
 import CustomButton from '../components/CustomButton';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Logo/Icon Placeholder */}
-        <View style={styles.logoContainer}>
-          <View style={styles.logo}>
-            <Text style={styles.logoText}>WA</Text>
-          </View>
-        </View>
-
-        {/* Welcome Text */}
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Welcome to</Text>
-          <Text style={styles.appName}>WelcomeApp</Text>
-          <Text style={styles.subtitle}>
-            Your personal space for everything
-          </Text>
-        </View>
-
-        {/* Action Buttons */}
-        <View style={styles.buttonContainer}>
-          <CustomButton
-            title="Get Started"
-            onPress={() => navigation.navigate('Register')}
-            style={styles.primaryButton}
-          />
-          
-          <View style={styles.dividerContainer}>
-            <Text style={styles.dividerText}>Already have an account?</Text>
-          </View>
-          
-          <CustomButton
-            title="Sign In"
-            variant="secondary"
-            onPress={() => navigation.navigate('Login')}
-            style={styles.secondaryButton}
-          />
+    <ScreenLayout contentContainerStyle={styles.content}>
+      {/* Logo/Icon Placeholder */}
+      <View style={styles.logoContainer}>
+        <View style={styles.logo}>
+          <Text style={styles.logoText}>WA</Text>
         </View>
       </View>
-    </SafeAreaView>
+
+      {/* Welcome Text */}
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>Welcome to</Text>
+        <Text style={styles.appName}>WelcomeApp</Text>
+        <Text style={styles.subtitle}>
+          Your personal space for everything
+        </Text>
+      </View>
+
+      {/* Action Buttons */}
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          title="Get Started"
+          onPress={() => navigation.navigate('Register')}
+          style={styles.primaryButton}
+        />
+        
+        <View style={styles.dividerContainer}>
+          <Text style={styles.dividerText}>Already have an account?</Text>
+        </View>
+        
+        <CustomButton
+          title="Sign In"
+          variant="secondary"
+          onPress={() => navigation.navigate('Login')}
+          style={styles.secondaryButton}
+        />
+      </View>
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
   content: {
     flex: 1,
-    paddingHorizontal: 24,
     justifyContent: 'space-between',
     paddingTop: 60,
     paddingBottom: 40,

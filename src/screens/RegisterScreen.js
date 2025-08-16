@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ScreenLayout from '../components/layout/ScreenLayout';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -101,118 +102,103 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView 
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
-          {/* Header */}
-          <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => navigation.goBack()}
-            >
-              <Ionicons name="arrow-back" size={24} color="#1E293B" />
-            </TouchableOpacity>
-          </View>
+    <ScreenLayout scrollable contentContainerStyle={styles.scrollContent}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#1E293B" />
+        </TouchableOpacity>
+      </View>
 
-          {/* Title */}
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Create Account</Text>
-            <Text style={styles.subtitle}>Join WelcomeApp today</Text>
-          </View>
+      {/* Title */}
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Create Account</Text>
+        <Text style={styles.subtitle}>Join WelcomeApp today</Text>
+      </View>
 
-                  {/* Gmail Button */}
-        <GmailButton
-          onPress={handleGmailRegister}
-          loading={gmailLoading}
-          style={styles.gmailButton}
+      {/* Gmail Button */}
+      <GmailButton
+        onPress={handleGmailRegister}
+        loading={gmailLoading}
+        style={styles.gmailButton}
+      />
+
+      {/* Divider */}
+      <View style={styles.dividerContainer}>
+        <View style={styles.dividerLine} />
+        <Text style={styles.dividerText}>or</Text>
+        <View style={styles.dividerLine} />
+      </View>
+
+      {/* Registration Form */}
+      <View style={styles.formContainer}>
+        <CustomInput
+          label="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
+          placeholder="Enter your full name"
+          autoCapitalize="words"
+          error={errors.fullName}
         />
 
-          {/* Divider */}
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>or</Text>
-            <View style={styles.dividerLine} />
+        <CustomInput
+          label="Email Address"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter your email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          error={errors.email}
+        />
+
+        <CustomInput
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Create a password"
+          secureTextEntry
+          error={errors.password}
+        />
+
+        <CustomInput
+          label="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          placeholder="Confirm your password"
+          secureTextEntry
+          error={errors.confirmPassword}
+        />
+
+        {authError ? (
+          <View style={styles.authErrorContainer}>
+            <Text style={styles.authErrorText}>{authError}</Text>
           </View>
+        ) : null}
 
-          {/* Registration Form */}
-          <View style={styles.formContainer}>
-            <CustomInput
-              label="Full Name"
-              value={fullName}
-              onChangeText={setFullName}
-              placeholder="Enter your full name"
-              autoCapitalize="words"
-              error={errors.fullName}
-            />
+        <CustomButton
+          title="Create Account"
+          onPress={handleEmailRegister}
+          loading={loading}
+          style={styles.createAccountButton}
+        />
+      </View>
 
-            <CustomInput
-              label="Email Address"
-              value={email}
-              onChangeText={setEmail}
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              error={errors.email}
-            />
-
-            <CustomInput
-              label="Password"
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Create a password"
-              secureTextEntry
-              error={errors.password}
-            />
-
-            <CustomInput
-              label="Confirm Password"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm your password"
-              secureTextEntry
-              error={errors.confirmPassword}
-            />
-
-                      {authError ? (
-            <View style={styles.authErrorContainer}>
-              <Text style={styles.authErrorText}>{authError}</Text>
-            </View>
-          ) : null}
-
-          <CustomButton
-            title="Create Account"
-            onPress={handleEmailRegister}
-            loading={loading}
-            style={styles.createAccountButton}
-          />
-          </View>
-
-                  {/* Footer */}
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.footerLink}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.footerLink}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
+    </ScreenLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  scrollView: {
-    flex: 1,
-  },
   scrollContent: {
-    paddingHorizontal: 24,
     paddingBottom: 40,
   },
   header: {
