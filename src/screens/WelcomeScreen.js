@@ -22,7 +22,6 @@ const WelcomeScreen = ({ navigation }) => {
         subtitleStyle={styles.subtitle}
         containerStyle={styles.textContainer}
       />
-      <Text style={styles.appName}>WelcomeApp</Text>
 
       {/* Action Buttons */}
       <View style={styles.buttonContainer}>
@@ -82,12 +81,6 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     marginVertical: 40,
-  },
-  appName: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1E293B',
-    marginBottom: 16,
   },
   buttonContainer: {
     gap: 16,
