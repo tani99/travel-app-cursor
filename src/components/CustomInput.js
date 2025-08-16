@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../theme/colors';
 
 const CustomInput = ({
   label,
@@ -41,7 +42,7 @@ const CustomInput = ({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor="#64748B"
+          placeholderTextColor={colors.input.placeholder}
           secureTextEntry={secureTextEntry && !showPassword}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
@@ -58,7 +59,7 @@ const CustomInput = ({
             <Ionicons
               name={showPassword ? 'eye-off' : 'eye'}
               size={20}
-              color="#64748B"
+              color={colors.input.placeholder}
             />
           </TouchableOpacity>
         )}
@@ -75,30 +76,30 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#1E293B',
+    color: colors.input.text,
     marginBottom: 8,
   },
   inputContainer: {
     position: 'relative',
   },
   input: {
-    backgroundColor: '#F8FAFC',
+    backgroundColor: colors.input.background,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: colors.input.border,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 16,
     fontSize: 16,
-    color: '#1E293B',
+    color: colors.input.text,
     minHeight: 56,
   },
   inputFocused: {
-    borderColor: '#2563EB',
-    backgroundColor: '#FFFFFF',
+    borderColor: colors.input.borderFocus,
+    backgroundColor: colors.background.primary,
   },
   inputError: {
-    borderColor: '#EF4444',
-    backgroundColor: '#FEF2F2',
+    borderColor: colors.input.borderError,
+    backgroundColor: colors.status.error.background,
   },
   eyeIcon: {
     position: 'absolute',
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     top: 18,
   },
   errorText: {
-    color: '#EF4444',
+    color: colors.status.error.main,
     fontSize: 14,
     marginTop: 4,
     marginLeft: 4,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../theme/colors';
 
 const StatusMessage = ({ 
   type, // 'success' or 'error'
@@ -15,7 +16,7 @@ const StatusMessage = ({
 
   const isSuccess = type === 'success';
   const iconName = isSuccess ? 'checkmark-circle' : 'alert-circle';
-  const iconColor = isSuccess ? '#059669' : '#DC2626';
+  const iconColor = isSuccess ? colors.status.success.light : colors.status.error.light;
 
   return (
     <View style={[
@@ -45,13 +46,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   successContainer: {
-    backgroundColor: '#ECFDF5',
-    borderColor: '#A7F3D0',
+    backgroundColor: colors.status.success.background,
+    borderColor: colors.status.success.border,
     borderWidth: 1,
   },
   errorContainer: {
-    backgroundColor: '#FEF2F2',
-    borderColor: '#FECACA',
+    backgroundColor: colors.status.error.background,
+    borderColor: colors.status.error.border,
     borderWidth: 1,
   },
   statusText: {
@@ -60,10 +61,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   successText: {
-    color: '#059669',
+    color: colors.status.success.light,
   },
   errorText: {
-    color: '#DC2626',
+    color: colors.status.error.light,
   },
 });
 

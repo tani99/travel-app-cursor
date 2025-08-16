@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../theme/colors';
 
 const GmailButton = ({ onPress, loading = false, disabled = false, style }) => {
   return (
@@ -11,10 +12,10 @@ const GmailButton = ({ onPress, loading = false, disabled = false, style }) => {
       activeOpacity={0.8}
     >
       {loading ? (
-        <ActivityIndicator color="#1E293B" size="small" />
+        <ActivityIndicator color={colors.gmail.text} size="small" />
       ) : (
         <View style={styles.content}>
-          <Ionicons name="mail" size={20} color="#EA4335" style={styles.icon} />
+          <Ionicons name="mail" size={20} color={colors.gmail.icon} style={styles.icon} />
           <Text style={styles.text}>Continue with Gmail</Text>
         </View>
       )}
@@ -24,16 +25,16 @@ const GmailButton = ({ onPress, loading = false, disabled = false, style }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.gmail.background,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: colors.gmail.border,
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 24,
     minHeight: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
+    shadowColor: colors.shadow.default,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -43,8 +44,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   disabled: {
-    backgroundColor: '#F1F5F9',
-    borderColor: '#CBD5E1',
+    backgroundColor: colors.gmail.backgroundPressed,
+    borderColor: colors.gmail.borderPressed,
   },
   content: {
     flexDirection: 'row',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1E293B',
+    color: colors.gmail.text,
   },
 });
 

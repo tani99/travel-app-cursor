@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const LoadingIndicator = ({ 
   message = 'Loading...', 
   size = 'small', 
-  color = '#2563EB',
+  color = colors.primary.main,
   containerStyle,
   textStyle,
   showBackground = true 
@@ -33,12 +34,12 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   withBackground: {
-    backgroundColor: '#F8FAFC',
+    backgroundColor: colors.background.secondary,
     borderRadius: 8,
     marginTop: 16,
   },
   text: {
-    color: '#64748B',
+    color: colors.text.secondary,
     fontSize: 14,
     marginLeft: 8,
   },

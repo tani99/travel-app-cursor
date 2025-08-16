@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { colors } from '../../theme/colors';
 
 const HelpText = ({ 
   text, 
@@ -23,11 +24,11 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 20,
     padding: 12,
-    backgroundColor: '#F1F5F9',
+    backgroundColor: colors.background.tertiary,
     borderRadius: 8,
   },
   text: {
-    color: '#475569',
+    color: colors.text.tertiary,
     fontSize: 14,
     textAlign: 'center',
   },

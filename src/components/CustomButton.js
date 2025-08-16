@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { colors } from '../theme/colors';
 
 const CustomButton = ({ 
   title, 
@@ -33,7 +34,7 @@ const CustomButton = ({
     >
       {loading ? (
         <ActivityIndicator 
-          color={variant === 'primary' ? '#FFFFFF' : '#2563EB'} 
+          color={variant === 'primary' ? colors.button.primary.text : colors.button.secondary.text} 
           size="small" 
         />
       ) : (
@@ -61,16 +62,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   primary: {
-    backgroundColor: '#2563EB',
+    backgroundColor: colors.button.primary.background,
   },
   secondary: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.button.secondary.background,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: colors.button.secondary.border,
   },
   disabled: {
-    backgroundColor: '#CBD5E1',
-    borderColor: '#CBD5E1',
+    backgroundColor: colors.button.disabled.background,
+    borderColor: colors.button.disabled.border,
   },
   text: {
     fontSize: 16,
@@ -78,13 +79,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   primaryText: {
-    color: '#FFFFFF',
+    color: colors.button.primary.text,
   },
   secondaryText: {
-    color: '#1E293B',
+    color: colors.button.secondary.text,
   },
   disabledText: {
-    color: '#64748B',
+    color: colors.button.disabled.text,
   },
 });
 
