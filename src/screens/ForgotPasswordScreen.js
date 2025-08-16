@@ -5,6 +5,7 @@ import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenTitle from '../components/layout/ScreenTitle';
 import ScreenFooter from '../components/layout/ScreenFooter';
+import StatusMessage from '../components/forms/StatusMessage';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
@@ -94,23 +95,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
       />
 
       {/* Status Messages */}
-      {status === 'success' && (
-        <View style={[styles.statusContainer, styles.successContainer]}>
-          <Ionicons name="checkmark-circle" size={20} color="#059669" />
-          <Text style={styles.successText}>
-            Reset link sent! Check your email.
-          </Text>
-        </View>
-      )}
-
-      {status === 'error' && (
-        <View style={[styles.statusContainer, styles.errorContainer]}>
-          <Ionicons name="alert-circle" size={20} color="#DC2626" />
-          <Text style={styles.errorText}>
-            Failed to send reset link. Please try again.
-          </Text>
-        </View>
-      )}
+      <StatusMessage
+        type={status}
+        message={
+          status === 'success' 
+            ? 'Reset link sent! Check your email.'
+            : status === 'error'
+            ? 'Failed to send reset link. Please try again.'
+            : null
+        }
+      />
 
       {/* Form */}
       <View style={styles.formContainer}>
@@ -178,35 +172,7 @@ const styles = StyleSheet.create({
     color: '#64748B',
     lineHeight: 24,
   },
-  statusContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  successContainer: {
-    backgroundColor: '#ECFDF5',
-    borderColor: '#A7F3D0',
-    borderWidth: 1,
-  },
-  errorContainer: {
-    backgroundColor: '#FEF2F2',
-    borderColor: '#FECACA',
-    borderWidth: 1,
-  },
-  successText: {
-    color: '#059669',
-    fontSize: 14,
-    marginLeft: 8,
-    fontWeight: '500',
-  },
-  errorText: {
-    color: '#DC2626',
-    fontSize: 14,
-    marginLeft: 8,
-    fontWeight: '500',
-  },
+
   formContainer: {
     flex: 1,
   },
