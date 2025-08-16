@@ -5,6 +5,7 @@ import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenFooter from '../components/layout/ScreenFooter';
 import FormDivider from '../components/forms/FormDivider';
 import AuthErrorDisplay from '../components/forms/AuthErrorDisplay';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -173,6 +174,12 @@ const RegisterScreen = ({ navigation }) => {
           loading={loading}
           style={styles.createAccountButton}
         />
+
+        {loading && (
+          <LoadingIndicator 
+            message="Creating your account..."
+          />
+        )}
       </View>
 
       {/* Footer */}

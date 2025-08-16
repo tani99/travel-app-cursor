@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenTitle from '../components/layout/ScreenTitle';
 import ScreenFooter from '../components/layout/ScreenFooter';
 import StatusMessage from '../components/forms/StatusMessage';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
@@ -131,12 +132,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
         />
 
         {loading && (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="small" color="#2563EB" />
-            <Text style={styles.loadingText}>
-              Sending reset link to your email...
-            </Text>
-          </View>
+          <LoadingIndicator 
+            message="Sending reset link to your email..."
+          />
         )}
       </View>
 
@@ -178,20 +176,6 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     marginTop: 24,
-  },
-  loadingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 16,
-    padding: 12,
-    backgroundColor: '#F8FAFC',
-    borderRadius: 8,
-  },
-  loadingText: {
-    color: '#64748B',
-    fontSize: 14,
-    marginLeft: 8,
   },
   helpContainer: {
     marginBottom: 20,

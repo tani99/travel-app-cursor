@@ -5,6 +5,7 @@ import ScreenHeader from '../components/layout/ScreenHeader';
 import ScreenFooter from '../components/layout/ScreenFooter';
 import FormDivider from '../components/forms/FormDivider';
 import AuthErrorDisplay from '../components/forms/AuthErrorDisplay';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
@@ -141,6 +142,12 @@ const LoginScreen = ({ navigation }) => {
           loading={loading}
           style={styles.signInButton}
         />
+
+        {loading && (
+          <LoadingIndicator 
+            message="Signing you in..."
+          />
+        )}
       </View>
 
       {/* Footer */}
