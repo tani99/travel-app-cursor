@@ -202,6 +202,7 @@ const RegisterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 40,
+    flexGrow: 1,
   },
   titleContainer: {
     marginBottom: 32,
@@ -219,7 +220,6 @@ const styles = StyleSheet.create({
   gmailButton: {
     marginBottom: 24,
   },
-
   formContainer: {
     marginBottom: 20,
   },
@@ -227,8 +227,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 24,
   },
-
-
 });
 
 export default RegisterScreen;

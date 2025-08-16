@@ -29,7 +29,10 @@ const ScreenLayout = ({
           style={styles.scrollView}
           contentContainerStyle={contentStyle}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
+          bounces={false}
+          alwaysBounceVertical={false}
+          overScrollMode="never"
+          nestedScrollEnabled={true}
         >
           {children}
         </ScrollView>
@@ -54,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    flex: 1,
+    flexGrow: 1,
   },
 });
 
