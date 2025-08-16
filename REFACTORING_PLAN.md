@@ -227,12 +227,7 @@ Continue incremental approach with form-related components.
    - Enhance error display in LoginScreen and RegisterScreen
 3. Test status message functionality
 
-#### Step 2.4: Create AuthFormContainer Component
-1. Implement `AuthFormContainer.js` with Gmail button, divider, and form wrapper
-2. **Immediately integrate** into relevant screens:
-   - Replace form container in LoginScreen
-   - Replace form container in RegisterScreen
-3. Test form container functionality
+
 
 ### Phase 3: Utility Components
 Add utility components incrementally.
@@ -250,32 +245,19 @@ Add utility components incrementally.
    - Replace help text in ForgotPasswordScreen
 3. Test help text display
 
-### Phase 4: Screen-Specific Components
-Create specialized components for unique screen content.
 
-#### Step 4.1: Create WelcomeContent Component
-1. Implement `WelcomeContent.js` with logo, app name, and welcome text
-2. **Immediately integrate** into WelcomeScreen:
-   - Replace welcome content section
-3. Test welcome screen functionality
 
-#### Step 4.2: Create HomeContent Component
-1. Implement `HomeContent.js` with welcome message and content placeholder
-2. **Immediately integrate** into HomeScreen:
-   - Replace home content section
-3. Test home screen functionality
-
-### Phase 5: Theme and Styling
+### Phase 4: Theme and Styling
 Create shared styling system.
 
-#### Step 5.1: Create Theme System
+#### Step 4.1: Create Theme System
 1. Create `src/theme/` directory
 2. Implement `colors.js`, `typography.js`, `spacing.js`
 3. **Immediately integrate** theme constants into all components
 4. Update all screens to use theme constants
 5. Test styling consistency across all screens
 
-#### Step 5.2: Final Optimization
+#### Step 4.2: Final Optimization
 1. Review all components for consistency
 2. Optimize component props and interfaces
 3. Add comprehensive documentation
@@ -421,21 +403,16 @@ src/
 - **Day 1-2**: FormDivider component + integration
 - **Day 3-4**: AuthErrorDisplay component + integration
 - **Day 5-6**: StatusMessage component + integration
-- **Day 7**: AuthFormContainer component + integration
 
 ### Phase 3: Utility Components (Week 3)
 - **Day 1-3**: LoadingIndicator component + integration
 - **Day 4-7**: HelpText component + integration
 
-### Phase 4: Screen-Specific Components (Week 4)
-- **Day 1-3**: WelcomeContent component + integration
-- **Day 4-7**: HomeContent component + integration
-
-### Phase 5: Theme and Finalization (Week 5)
+### Phase 4: Theme and Finalization (Week 4)
 - **Day 1-4**: Theme system creation + integration
 - **Day 5-7**: Final optimization, testing, and documentation
 
-**Total Estimated Time**: 5 weeks for complete refactoring
+**Total Estimated Time**: 4 weeks for complete refactoring
 **Key Advantage**: Each component is tested in production immediately after creation
 
 ## Conclusion
