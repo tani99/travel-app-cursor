@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ScreenLayout from '../components/layout/ScreenLayout';
+import ScreenTitle from '../components/layout/ScreenTitle';
 import CustomButton from '../components/CustomButton';
 
 const WelcomeScreen = ({ navigation }) => {
@@ -14,13 +15,14 @@ const WelcomeScreen = ({ navigation }) => {
       </View>
 
       {/* Welcome Text */}
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Welcome to</Text>
-        <Text style={styles.appName}>WelcomeApp</Text>
-        <Text style={styles.subtitle}>
-          Your personal space for everything
-        </Text>
-      </View>
+      <ScreenTitle 
+        title="Welcome to"
+        subtitle="Your personal space for everything"
+        titleStyle={styles.title}
+        subtitleStyle={styles.subtitle}
+        containerStyle={styles.textContainer}
+      />
+      <Text style={styles.appName}>WelcomeApp</Text>
 
       {/* Action Buttons */}
       <View style={styles.buttonContainer}>
@@ -81,22 +83,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 40,
   },
-  title: {
-    fontSize: 24,
-    color: '#64748B',
-    marginBottom: 8,
-  },
   appName: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#1E293B',
     marginBottom: 16,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#64748B',
-    textAlign: 'center',
-    lineHeight: 26,
   },
   buttonContainer: {
     gap: 16,

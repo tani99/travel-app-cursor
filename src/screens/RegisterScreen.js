@@ -7,6 +7,7 @@ import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
 import { registerWithEmail, loginWithGmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
+import ScreenTitle from '../components/layout/ScreenTitle';
 
 const RegisterScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -107,10 +108,10 @@ const RegisterScreen = ({ navigation }) => {
       <ScreenHeader navigation={navigation} />
 
       {/* Title */}
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Join WelcomeApp today</Text>
-      </View>
+      <ScreenTitle 
+        title="Create Account"
+        subtitle="Join TravelPlanner and start your adventure"
+      />
 
       {/* Gmail Button */}
       <GmailButton

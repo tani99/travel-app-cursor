@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import ScreenLayout from '../components/layout/ScreenLayout';
 import ScreenHeader from '../components/layout/ScreenHeader';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
+import ScreenTitle from '../components/layout/ScreenTitle';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -85,12 +87,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
       <ScreenHeader navigation={navigation} />
 
       {/* Title */}
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Reset Password</Text>
-        <Text style={styles.subtitle}>
-          Enter your email to receive reset link
-        </Text>
-      </View>
+      <ScreenTitle 
+        title="Reset Password"
+        subtitle="Enter your email to receive reset link"
+      />
 
       {/* Status Messages */}
       {status === 'success' && (
