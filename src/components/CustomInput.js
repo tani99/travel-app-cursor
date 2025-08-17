@@ -55,6 +55,7 @@ const CustomInput = ({
           <TouchableOpacity
             style={styles.eyeIcon}
             onPress={togglePasswordVisibility}
+            testID="eye-icon"
           >
             <Ionicons
               name={showPassword ? 'eye-off' : 'eye'}
