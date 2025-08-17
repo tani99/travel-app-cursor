@@ -27,6 +27,7 @@ const CustomButton = ({
 
   return (
     <TouchableOpacity
+      testID="custom-button"
       style={buttonStyle}
       onPress={onPress}
       disabled={disabled || loading}
@@ -34,6 +35,7 @@ const CustomButton = ({
     >
       {loading ? (
         <ActivityIndicator 
+          testID="activity-indicator"
           color={variant === 'primary' ? colors.button.primary.text : colors.button.secondary.text} 
           size="small" 
         />
