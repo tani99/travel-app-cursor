@@ -25,7 +25,7 @@ const HomeScreen = ({ navigation }) => {
       {/* Header */}
       <ScreenHeader 
         navigation={navigation}
-        title="WelcomeApp"
+        title="Dashboard"
         showBackButton={false}
         rightElement={
           <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <Text style={styles.welcomeTitle}>Welcome!</Text>
         <Text style={styles.welcomeSubtitle}>
-          You have successfully signed in to WelcomeApp
+          You have successfully signed in to your app
         </Text>
         {user?.email && (
           <Text style={styles.userEmail}>{user.email}</Text>

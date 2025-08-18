@@ -1,7 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
-// Your Firebase configuration
+// TODO: Replace with your Firebase configuration for production
+// 1. Go to https://console.firebase.google.com/
+// 2. Create a new project or select existing project
+// 3. Enable Authentication (Email/Password and Google sign-in)
+// 4. Copy your config from Project Settings > General > Your apps
+// Current config is for template testing only
 const firebaseConfig = {
   apiKey: "AIzaSyCOhItVy6QJaENyZxAc57_e_YOiWl_mq_c",
   authDomain: "travel-planner-codex.firebaseapp.com",

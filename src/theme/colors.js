@@ -1,5 +1,5 @@
 /**
- * WelcomeApp Color Theme
+ * React Native Auth Template Color Theme
  * 
  * This file contains all the colors used throughout the application,
  * organized by semantic meaning for easy maintenance and consistency.

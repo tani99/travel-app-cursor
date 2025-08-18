@@ -1,6 +1,6 @@
-# WelcomeApp - React Native Authentication
+# React Native Auth Template
 
-A modern React Native app with beautiful authentication UI and Firebase integration.
+A modern React Native authentication template with beautiful UI and Firebase integration. Use this template to quickly start building your next app with authentication features.
 
 ## Features
 

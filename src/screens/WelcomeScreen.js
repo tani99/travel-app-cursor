@@ -11,14 +11,16 @@ const WelcomeScreen = ({ navigation }) => {
       {/* Logo/Icon Placeholder */}
       <View style={styles.logoContainer}>
         <View style={styles.logo}>
-          <Text style={styles.logoText}>WA</Text>
+          {/* TODO: Replace "APP" with your app name or logo */}
+          <Text style={styles.logoText}>APP</Text>
         </View>
       </View>
 
       {/* Welcome Text */}
+      {/* TODO: Customize welcome text for your app */}
       <ScreenTitle 
         title="Welcome to"
-        subtitle="Your personal space for everything"
+        subtitle="Your React Native App"
         titleStyle={styles.title}
         subtitleStyle={styles.subtitle}
         containerStyle={styles.textContainer}
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   logoText: {
-    fontSize: 48,
+    fontSize: 36,
     fontWeight: 'bold',
     color: colors.text.inverse,
   },

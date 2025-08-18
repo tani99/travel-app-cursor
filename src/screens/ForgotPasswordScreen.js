@@ -13,7 +13,7 @@ import CustomButton from '../components/CustomButton';
 import { resetPassword } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
 import { colors } from '../theme/colors';
-
+import app from '../config/firebase';
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -46,9 +46,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
     try {
       console.log('Attempting to reset password for:', email);
+      // TODO: Remove these hardcoded Firebase project references when using template
+      // Log Firebase config details from the initialized app to avoid hardcoding
+      
       console.log('Firebase config check:', {
-        authDomain: 'travel-planner-codex.firebaseapp.com',
-        projectId: 'travel-planner-codex'
+        authDomain: app.options.authDomain,
+        projectId: app.options.projectId
       });
       
       const result = await resetPassword(email);
