@@ -5,25 +5,29 @@ import { colors } from '../theme/colors';
 
 const GmailButton = ({ onPress, loading = false, disabled = false, style }) => {
   return (
-    <TouchableOpacity
-      style={[styles.button, disabled && styles.disabled, style]}
-      onPress={onPress}
-      disabled={disabled || loading}
-      activeOpacity={0.8}
-    >
-      {loading ? (
-        <ActivityIndicator color={colors.gmail.text} size="small" />
-      ) : (
+    <View style={[styles.container, style]}>
+      <TouchableOpacity
+        style={[styles.button, styles.disabled]}
+        onPress={() => {}} // Disable functionality
+        disabled={true}
+        activeOpacity={0.8}
+      >
         <View style={styles.content}>
           <Ionicons name="mail" size={20} color={colors.gmail.icon} style={styles.icon} />
           <Text style={styles.text}>Continue with Gmail</Text>
         </View>
-      )}
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <View style={styles.comingSoonTag}>
+        <Text style={styles.comingSoonText}>Coming Soon</Text>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
   button: {
     backgroundColor: colors.gmail.background,
     borderWidth: 1,
@@ -46,6 +50,7 @@ const styles = StyleSheet.create({
   disabled: {
     backgroundColor: colors.gmail.backgroundPressed,
     borderColor: colors.gmail.borderPressed,
+    opacity: 0.6,
   },
   content: {
     flexDirection: 'row',
@@ -59,6 +64,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.gmail.text,
+  },
+  comingSoonTag: {
+    position: 'absolute',
+    top: -8,
+    right: -8,
+    backgroundColor: colors.primary.main,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    shadowColor: colors.shadow.default,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  comingSoonText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'white',
+    textTransform: 'uppercase',
   },
 });
 

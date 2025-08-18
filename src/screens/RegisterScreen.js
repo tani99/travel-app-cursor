@@ -10,7 +10,7 @@ import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
-import { registerWithEmail, loginWithGmail } from '../services/auth';
+import { registerWithEmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
 import ScreenTitle from '../components/layout/ScreenTitle';
 import { colors } from '../theme/colors';
@@ -21,7 +21,6 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [gmailLoading, setGmailLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [authError, setAuthError] = useState('');
 
@@ -89,23 +88,8 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   const handleGmailRegister = async () => {
-    setGmailLoading(true);
-    try {
-      console.log('Attempting Gmail registration...');
-      const result = await loginWithGmail();
-      console.log('Gmail registration result:', result);
-      
-      if (result.success) {
-        console.log('Gmail registration successful');
-      } else {
-        Alert.alert('Gmail Registration Failed', result.error || 'Gmail registration is not available at this time.');
-      }
-    } catch (error) {
-      console.error('Gmail registration error:', error);
-      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
-    } finally {
-      setGmailLoading(false);
-    }
+    // Gmail sign-in is currently disabled - coming soon
+    Alert.alert('Coming Soon', 'Gmail sign-in will be available in a future update!');
   };
 
   return (
@@ -122,7 +106,6 @@ const RegisterScreen = ({ navigation }) => {
       {/* Gmail Button */}
       <GmailButton
         onPress={handleGmailRegister}
-        loading={gmailLoading}
         style={styles.gmailButton}
       />
 

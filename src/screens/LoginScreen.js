@@ -10,7 +10,7 @@ import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import GmailButton from '../components/GmailButton';
-import { loginWithEmail, loginWithGmail } from '../services/auth';
+import { loginWithEmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
 import { colors } from '../theme/colors';
 
@@ -18,7 +18,6 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [gmailLoading, setGmailLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [authError, setAuthError] = useState('');
 
@@ -68,23 +67,8 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleGmailLogin = async () => {
-    setGmailLoading(true);
-    try {
-      console.log('Attempting Gmail login...');
-      const result = await loginWithGmail();
-      console.log('Gmail login result:', result);
-      
-      if (result.success) {
-        console.log('Gmail login successful');
-      } else {
-        Alert.alert('Gmail Login Failed', result.error || 'Gmail login is not available at this time.');
-      }
-    } catch (error) {
-      console.error('Gmail login error:', error);
-      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
-    } finally {
-      setGmailLoading(false);
-    }
+    // Gmail sign-in is currently disabled - coming soon
+    Alert.alert('Coming Soon', 'Gmail sign-in will be available in a future update!');
   };
 
   return (
@@ -101,7 +85,6 @@ const LoginScreen = ({ navigation }) => {
       {/* Gmail Button */}
       <GmailButton
         onPress={handleGmailLogin}
-        loading={gmailLoading}
         style={styles.gmailButton}
       />
 
@@ -154,7 +137,7 @@ const LoginScreen = ({ navigation }) => {
 
       {/* Help Text */}
       <HelpText 
-        text="Quick sign in with Gmail or use your email and password below."
+        text="Gmail sign-in coming soon! Use your email and password below to sign in."
         icon="⚡"
       />
 
