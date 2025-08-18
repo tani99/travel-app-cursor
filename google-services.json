@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "807049061422",
+    "project_id": "travel-planner-codex",
+    "storage_bucket": "travel-planner-codex.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807049061422:android:e05db5ee6d49555794ebbf",
+        "android_client_info": {
+          "package_name": "com.yourcompany.welcomeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807049061422-iiskpr9030v78cl08i8dednq70a6arfh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaptciLMTc3ZsE0S7poXXywnknMrlthXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807049061422-iiskpr9030v78cl08i8dednq70a6arfh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "807049061422-975trt0s2k8dttfiik2arkp48gaqe5je.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.yourcompany.welcomeapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,7 @@ import LoadingIndicator from '../components/ui/LoadingIndicator';
 import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-import GmailButton from '../components/GmailButton';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { loginWithEmail, loginWithGmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
 import { colors } from '../theme/colors';
@@ -69,19 +69,23 @@ const LoginScreen = ({ navigation }) => {
 
   const handleGmailLogin = async () => {
     setGmailLoading(true);
+    setAuthError(''); // Clear any previous errors
+    
     try {
       console.log('Attempting Gmail login...');
       const result = await loginWithGmail();
       console.log('Gmail login result:', result);
       
       if (result.success) {
-        console.log('Gmail login successful');
+        console.log('Gmail login successful - user should be redirected to Home');
+        // Navigation will be handled by AuthContext
       } else {
-        Alert.alert('Gmail Login Failed', result.error || 'Gmail login is not available at this time.');
+        // Use the user-friendly error message from the service
+        setAuthError(result.error);
       }
     } catch (error) {
       console.error('Gmail login error:', error);
-      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
+      setAuthError(getUserFriendlyError(error, 'gmail'));
     } finally {
       setGmailLoading(false);
     }
@@ -98,12 +102,15 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.subtitle}>Sign in to continue</Text>
       </View>
 
-      {/* Gmail Button */}
-      <GmailButton
-        onPress={handleGmailLogin}
-        loading={gmailLoading}
-        style={styles.gmailButton}
-      />
+      {/* Google Sign-In Button */}
+      <View style={styles.googleSignInButton}>
+        <GoogleSigninButton
+          onPress={handleGmailLogin}
+          disabled={gmailLoading}
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Light}
+        />
+      </View>
 
       {/* Divider */}
       <FormDivider />
@@ -182,7 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text.secondary,
   },
-  gmailButton: {
+  googleSignInButton: {
     marginBottom: 24,
   },
 

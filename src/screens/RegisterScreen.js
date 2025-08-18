@@ -9,7 +9,7 @@ import LoadingIndicator from '../components/ui/LoadingIndicator';
 import HelpText from '../components/ui/HelpText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-import GmailButton from '../components/GmailButton';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { registerWithEmail, loginWithGmail } from '../services/auth';
 import { getUserFriendlyError } from '../utils/errorMessages';
 import ScreenTitle from '../components/layout/ScreenTitle';
@@ -90,19 +90,23 @@ const RegisterScreen = ({ navigation }) => {
 
   const handleGmailRegister = async () => {
     setGmailLoading(true);
+    setAuthError(''); // Clear any previous errors
+    
     try {
       console.log('Attempting Gmail registration...');
       const result = await loginWithGmail();
       console.log('Gmail registration result:', result);
       
       if (result.success) {
-        console.log('Gmail registration successful');
+        console.log('Gmail registration successful - user should be redirected to Home');
+        // Navigation will be handled by AuthContext
       } else {
-        Alert.alert('Gmail Registration Failed', result.error || 'Gmail registration is not available at this time.');
+        // Use the user-friendly error message from the service
+        setAuthError(result.error);
       }
     } catch (error) {
       console.error('Gmail registration error:', error);
-      Alert.alert('Error', getUserFriendlyError(error, 'gmail'));
+      setAuthError(getUserFriendlyError(error, 'gmail'));
     } finally {
       setGmailLoading(false);
     }
@@ -119,12 +123,15 @@ const RegisterScreen = ({ navigation }) => {
         subtitle="Join TravelPlanner and start your adventure"
       />
 
-      {/* Gmail Button */}
-      <GmailButton
-        onPress={handleGmailRegister}
-        loading={gmailLoading}
-        style={styles.gmailButton}
-      />
+      {/* Google Sign-In Button */}
+      <View style={styles.googleSignInButton}>
+        <GoogleSigninButton
+          onPress={handleGmailRegister}
+          disabled={gmailLoading}
+          size={GoogleSigninButton.Size.Wide}
+          color={GoogleSigninButton.Color.Light}
+        />
+      </View>
 
       {/* Divider */}
       <FormDivider />
@@ -218,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text.secondary,
   },
-  gmailButton: {
+  googleSignInButton: {
     marginBottom: 24,
   },
   formContainer: {
