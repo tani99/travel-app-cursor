@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+android/
+ios/
+.expo/
+dist/
+build/
+coverage/
+
+# Environment files
+.env*
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Config files
+*.config.js
+metro.config.js
+babel.config.js
+
+# Test coverage reports
+coverage/
+
+# Documentation
+*.md
+
